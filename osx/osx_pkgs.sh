@@ -62,6 +62,7 @@ CASKS=(
     visual-studio-code
     sequel-ace
     htop
+    hub
 )
 
 #install all the needed apps
