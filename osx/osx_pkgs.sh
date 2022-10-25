@@ -34,6 +34,7 @@ brew install vim
 brew install grep
 brew install openssh
 brew install screen
+brew install docker
 
 
 echo "Cleaning up Homebrew cache ..."
