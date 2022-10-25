@@ -41,6 +41,7 @@ brew cleanup
 
 
 CASKS=(
+    git
     sublime-text
     google-chrome
     google-drive

@@ -7,13 +7,22 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
 . $(brew --prefix)/etc/bash_completion
 fi
 
-# Aliases
-alias ls='ls -GFh'
-alias ll='ls -l'
-alias dev='cd ~/Documents/dev/'
+# Lang
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export BASH_SILENCE_DEPRECATION_WARNING=1
+export LDFLAGS="-L/usr/local/opt/libffi/lib"
+LANG=en_US.utf-8
+LC_ALL=en_US.utf-8
 
-alias brc='sudo vim ~/.bash_profile'
-alias vol='open /Volumes'
+# Start ssh agent and add all private keys found in ~/.ssh/
+addsshkeys () {
+  eval `ssh-agent` && find ~/.ssh/ -name "id_rsa" | xargs ssh-add
+}
+
+# Add git to terminal
+source /usr/local/etc/bash_completion.d/git-completion.bash
+
 
 # Add git to terminal
 source /usr/local/etc/bash_completion.d/git-completion.bash
@@ -24,3 +33,25 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 export TERM=xterm-256color
+
+# Aliases
+alias p='cd ..'
+alias ls='ls -GFh'
+alias ll='ls -l'
+
+alias hosts='sudo vim /etc/hosts'
+
+alias port80='sudo lsof -i :80'
+
+alias brc='sudo vim ~/.bash_profile'
+alias sourceBashrc='source ~/.bash_profile'
+
+alias vol='open /Volumes'
+
+alias brewUpdateAll='brew update; brew upgrade; brew upgrade --cask; brew cleanup;'
+
+# ssh-keys
+alias mySSHKey='cat ~/.ssh/id_rsa.pub'
+alias sshconfig='vim ~/.ssh/config'
+
+alias insomnia="open -n -a 'insomnia'"
