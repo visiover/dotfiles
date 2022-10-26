@@ -1,16 +1,16 @@
 #!/bin/sh
 
 #TODO: Check if xCode command line tools are installed
+echo "\n\n==> Installing xCode command line tools ..."
 xcode-select --install
-
 
 # Check if homebrew is installed and up to date
 if ! type "brew" > /dev/null; then
     #install homebrew
-	echo "\n==> Installing Homebrew...\n"
+	echo "\n\n==> Installing Homebrew ...\n"
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 else
-	echo "\nHomebrew installation found\nUpdating Homebrew "
+	echo "\n\n==> Homebrew installation found\nUpdating Homebrew ...\n"
 	# Make sure we’re using the latest Homebrew.
 	brew update
 	# Upgrade
@@ -25,24 +25,25 @@ brew doctor
 # Add Homebrew completions
 brew tap homebrew/homebrew-core
 
-
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
 brew install findutils
 
-# Install more recent versions of some macOS tools.
-brew install vim
-brew install grep
-brew install openssh
-brew install screen
-brew install docker
+# Install more recent versions of some macOS tools
+PACKAGES=(
+    vim
+    grep
+    openssh
+    screen
+    docker
+    git
+    htop
+    hub
+)
 
-
-echo "Cleaning up Homebrew cache ..."
-brew cleanup
-
+echo "\n==> Installing packages\n"
+brew install ${PACKAGES[@]}
 
 CASKS=(
-    git
     sublime-text
     google-chrome
     google-drive
@@ -50,40 +51,36 @@ CASKS=(
     vlc
     spotify
     dropbox
-    unrarx
     the-unarchiver
     spectacle
     iterm2
     libreoffice
-    slack
-    marp
     sequel-pro
     lastpass
     dbngin
     insomnia
     visual-studio-code
     sequel-ace
-    htop
-    hub
+    slack
 )
 
 #install all the needed apps
-echo "\n==> Installing all the needed packages\n"
+echo "\n==> Installing cask packages\n"
 brew install --cask ${CASKS[@]}
 
 
 #install some fonts
-echo "Installing fonts..."
+echo "\n\n==> Installing fonts...\n"
 brew tap homebrew/cask-fonts 
 
 FONTS=(
-    font-inconsolidata
     font-clear-sans
 )
 
 brew install ${FONTS[@]}
 
 # cleanup cache
+echo "\n\n==> Cleaning up Homebrew cache ..."
 brew cleanup
 
 # TODO: Check if the packages have been successfully installed
@@ -93,5 +90,6 @@ defaults write com.apple.dock autohide-delay -float 0; killall Dock;
 
 
 #brew cask info pkg-name
+echo "\n\n==> Installed packages:\n"
 brew list
 echo "\n\n==> All the packages have been installed :)  \n\n"
